@@ -2,6 +2,7 @@ package downsize
 
 import (
 	"bytes"
+	"image"
 	"os"
 	"testing"
 )
@@ -32,7 +33,12 @@ func TestDownsize(t *testing.T) {
 		defer file.Close()
 
 		resBuf := bytes.NewBuffer(nil)
-		if err = Downsize(test.maxSize, file, resBuf); err != nil {
+		img, format, err := image.Decode(file)
+		if err != nil {
+			t.Errorf("Error: %v, cannot decode file %v\n", err, test.img)
+		}
+
+		if err = Encode(resBuf, img, &Options{Size: test.maxSize, Format: format}); err != nil {
 			t.Errorf("Error: %v, cannot downsize file %v\n", err, test.img)
 		}
 		resSize := resBuf.Len()

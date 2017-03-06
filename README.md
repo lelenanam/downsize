@@ -1,22 +1,31 @@
 # downsize
 Reduces an image to a specified file size.
 
+Installation
+------------
+
+```bash
+$ go get github.com/lelenanam/downsize
+```
+
 Usage
 -----
 
 ```go
-import "github.com/morelena/downsize"
+import "github.com/lelenanam/downsize"
 ```
 
-The downsize package provides a function `downsize.Downsize` which:
+The downsize package provides a function `downsize.Encode`:
 
-* reads image from reader `r`
-* reduces an image's dimensions to achieve a specified file size `maxSize` in kilobytes
-* writes result image to writer `w`
- 
 ```go
-downsize.Downsize(maxSize int, r io.Reader, w io.Writer) error 
+func Encode(w io.Writer, m image.Image, o *Options) error 
 ```
+
+This function:
+
+* reduces an image's dimensions to achieve a specified file size `Options.Size` in bytes
+* writes result Image `m` to writer `w` with the given options
+* default parameters are used if a nil *Options is passed
 
 Sample usage:
 
@@ -24,32 +33,37 @@ Sample usage:
 package main
 
 import (
-	"fmt"
+	"image"
 	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
 	"log"
 	"os"
 
-	"github.com/morelena/downsize"
+	"github.com/lelenanam/downsize"
 )
 
 func main() {
-	file, err := os.Open("img.jpg")
+	file, err := os.Open("img.png")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
-	out, err := os.Create("resized.jpg")
+	img, format, err := image.Decode(file)
+	if err != nil {
+		log.Fatalf("Error: %v, cannot decode file %v\n", err, file.Name())
+	}
+
+	out, err := os.Create("resized.png")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer out.Close()
 
-	err = downsize.Downsize(1048576, file, out)
-	if err != nil {
-		fmt.Println("Error while downsizing", err)
+	opt := &downsize.Options{Size: 1048576, Format: format}
+	if err = downsize.Encode(out, img, opt); err != nil {
+		log.Fatalf("Error: %v, cannot downsize image to size: %v\n", err, opt.Size)
 	}
 }
 ```
