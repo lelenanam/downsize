@@ -1,4 +1,9 @@
 # downsize
+=======================================
+
+[![Build Status](https://travis-ci.org/lelenanam/downsize.svg?branch=master)](https://travis-ci.org/lelenanam/downsize)
+[![GoDoc](https://godoc.org/github.com/lelenanam/downsize?status.svg)](https://godoc.org/github.com/lelenanam/downsize)
+
 Reduces an image to a specified file size.
 
 Installation
