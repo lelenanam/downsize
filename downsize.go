@@ -25,9 +25,9 @@ type Options struct {
 	GifOptions *gif.Options
 }
 
-var defaulfFormat = "jpeg"
+var defaultFormat = "jpeg"
 var defaultJpegOptions = &jpeg.Options{Quality: 100}
-var defaultOptions = &Options{Format: defaulfFormat, JpegOptions: defaultJpegOptions}
+var defaultOptions = &Options{Format: defaultFormat, JpegOptions: defaultJpegOptions}
 
 //Accuracy for calculating specified file size Options.Size
 //for Options.Size result might be in range [Options.Size - Options.Size*Accuracy; Options.Size]
@@ -52,12 +52,12 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 		opts = o
 	}
 	if opts.Format == "" {
-		opts.Format = defaulfFormat
+		opts.Format = defaultFormat
 		if opts.GifOptions != nil {
 			opts.Format = "gif"
 		}
 	}
-	if opts.Format == defaulfFormat && opts.JpegOptions == nil {
+	if opts.Format == defaultFormat && opts.JpegOptions == nil {
 		opts.JpegOptions = defaultJpegOptions
 	}
 
@@ -70,7 +70,7 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 		opts.Size = originSize
 	}
 
-	if int(originSize) <= opts.Size {
+	if originSize <= opts.Size {
 		if _, err := io.Copy(w, buf); err != nil {
 			return err
 		}

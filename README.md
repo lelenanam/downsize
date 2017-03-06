@@ -57,7 +57,7 @@ func main() {
 
 	img, format, err := image.Decode(file)
 	if err != nil {
-		log.Fatalf("Error: %v, cannot decode file %v\n", err, file.Name())
+		log.Fatalf("Error: %v, cannot decode file %v", err, file.Name())
 	}
 
 	out, err := os.Create("resized.png")
@@ -68,7 +68,7 @@ func main() {
 
 	opt := &downsize.Options{Size: 1048576, Format: format}
 	if err = downsize.Encode(out, img, opt); err != nil {
-		log.Fatalf("Error: %v, cannot downsize image to size: %v\n", err, opt.Size)
+		log.Fatalf("Error: %v, cannot downsize image to size: %v", err, opt.Size)
 	}
 }
 ```
