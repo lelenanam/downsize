@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/lelenanam/downsize.svg?branch=master)](https://travis-ci.org/lelenanam/downsize)
 [![GoDoc](https://godoc.org/github.com/lelenanam/downsize?status.svg)](https://godoc.org/github.com/lelenanam/downsize)
 
-Reduces an image to a specified file size.
+Reduces an image to a specified file size in bytes.
 
 # Installation
 
@@ -17,7 +17,7 @@ $ go get github.com/lelenanam/downsize
 import "github.com/lelenanam/downsize"
 ```
 
-The downsize package provides a function `downsize.Encode`:
+The `downsize` package provides a function `downsize.Encode`:
 
 ```go
 func Encode(w io.Writer, m image.Image, o *Options) error 
@@ -25,10 +25,10 @@ func Encode(w io.Writer, m image.Image, o *Options) error
 
 This function:
 
-* takes any image type that implements image.Image interface as an input `m`
+* takes any image type that implements `image.Image` interface as an input `m`
 * reduces an image's dimensions to achieve a specified file size `Options.Size` in bytes
 * writes result Image `m` to writer `w` with the given options
-* default parameters are used if a nil *Options is passed
+* default parameters are used if a `nil` `*Options` is passed
 
 ```go
 // Options are the encoding parameters.
@@ -44,7 +44,7 @@ type Options struct {
 }
 ```
 
-By default image encodes with `jpeg` format and with highest quality `&jpeg.Options{Quality: 100}`
+By default an image encodes with `jpeg` format and with the highest quality `&jpeg.Options{Quality: 100}`
 
 ```go
 var defaultFormat = "jpeg"
