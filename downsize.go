@@ -71,10 +71,9 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 	}
 
 	if originSize <= opts.Size {
-		if _, err := io.Copy(w, buf); err != nil {
-			return err
-		}
-		return nil
+		_, err := io.Copy(w, buf)
+		return err
+
 	}
 
 	buf.Reset()
@@ -100,22 +99,18 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 		}
 	}
 	_, err := io.Copy(w, buf)
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func encode(w io.Writer, m image.Image, o *Options) error {
 	switch o.Format {
 	case "jpeg":
-		jpeg.Encode(w, m, o.JpegOptions)
+		return jpeg.Encode(w, m, o.JpegOptions)
 	case "png":
-		png.Encode(w, m)
+		return png.Encode(w, m)
 	case "gif":
-		gif.Encode(w, m, o.GifOptions)
+		return gif.Encode(w, m, o.GifOptions)
 	default:
 		return fmt.Errorf("Unknown image format %q", o.Format)
 	}
-	return nil
 }

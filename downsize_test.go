@@ -30,7 +30,11 @@ func TestDownsize(t *testing.T) {
 		if err != nil {
 			t.Errorf("Error: %v, cannot open file %v\n", err, test.img)
 		}
-		defer file.Close()
+		defer func() {
+			if err := file.Close(); err != nil {
+				t.Errorf("Error: %v, cannot close file %v\n", err, test.img)
+			}
+		}()
 
 		resBuf := bytes.NewBuffer(nil)
 		img, format, err := image.Decode(file)
