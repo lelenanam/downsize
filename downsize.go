@@ -39,14 +39,7 @@ var bufPool = sync.Pool{
 	},
 }
 
-// Encode changes size of Image m (result size<=o.Size)
-// and writes the Image m to w with the given options.
-// Default parameters are used if a nil *Options is passed.
-func Encode(w io.Writer, m image.Image, o *Options) error {
-	buf := bufPool.Get().(*bytes.Buffer)
-	buf.Reset()
-	defer bufPool.Put(buf)
-
+func setOptions(o *Options) *Options {
 	opts := defaultOptions
 	if o != nil {
 		opts = o
@@ -60,6 +53,18 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 	if opts.Format == defaultFormat && opts.JpegOptions == nil {
 		opts.JpegOptions = defaultJpegOptions
 	}
+	return opts
+}
+
+// Encode changes size of Image m (result size<=o.Size)
+// and writes the Image m to w with the given options.
+// Default parameters are used if a nil *Options is passed.
+func Encode(w io.Writer, m image.Image, o *Options) error {
+	buf := bufPool.Get().(*bytes.Buffer)
+	buf.Reset()
+	defer bufPool.Put(buf)
+
+	opts := setOptions(o)
 
 	if err := encode(buf, m, opts); err != nil {
 		return err
@@ -73,7 +78,6 @@ func Encode(w io.Writer, m image.Image, o *Options) error {
 	if originSize <= opts.Size {
 		_, err := io.Copy(w, buf)
 		return err
-
 	}
 
 	buf.Reset()
