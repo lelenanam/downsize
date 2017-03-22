@@ -44,7 +44,8 @@ type Options struct {
 }
 ```
 
-By default an image encodes with `jpeg` format and with the highest quality `&jpeg.Options{Quality: 100}`
+By default an image encodes with `jpeg` format and with the highest quality `&jpeg.Options{Quality: 100}`.
+All metadata is stripped after encoding.
 
 ```go
 var defaultFormat = "jpeg"
