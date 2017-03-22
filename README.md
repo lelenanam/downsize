@@ -94,6 +94,22 @@ func main() {
 }
 ```
 
+## Command Line Usage
+
+```sh
+$ # You can specify the size in bytes and the format for the output file.
+$ ds [-s size] [-f format] infile outfile
+$ ds [-help]
+```
+
+By default output file size is 200 KB and format is determined during decoding.
+
+## Example
+
+```sh
+$ ds -s 1000000 -f png image.jpg resized.png
+```
+
 # License
 
 [MIT License](LICENSE.md)
