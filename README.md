@@ -94,6 +94,57 @@ func main() {
 }
 ```
 
+# Sample
+
+The original image `2.4 MB`:
+
+![flower](https://cloud.githubusercontent.com/assets/4003503/24270582/f352a102-0fd2-11e7-852e-7ea77c4eae82.jpg)
+
+Downsize to `200 KB`, `png` format for result image:
+
+```sh
+$ downsize -s=204800 -f=png flower.jpg flower200kb.png
+```
+
+Resized result `200 KB`:
+
+![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24270862/1126aace-0fd4-11e7-8c06-769162a93abe.png)
+
+Downsize to `100 KB`, `png` format for result image:
+
+```sh
+$ downsize -s=102400 -f=png flower.jpg flower100kb.png
+```
+
+Resized result `100 KB`:
+
+![flower100kb](https://cloud.githubusercontent.com/assets/4003503/24270871/1b7d8e7a-0fd4-11e7-8b27-8b055a60201b.png)
+
+
+The original image `3.4 MB`:
+
+![leaves](https://cloud.githubusercontent.com/assets/4003503/24270590/ffc8b070-0fd2-11e7-949f-3f76364ac252.jpg)
+
+Downsize to `200 KB`, auto determine format for result image:
+
+```sh
+$ downsize -s=204800 leaves.jpg leaves200kb.jpg
+```
+
+Resized result `200 KB`:
+
+![leaves200kb](https://cloud.githubusercontent.com/assets/4003503/24270881/245cb76e-0fd4-11e7-86a4-b3547010e4f6.jpg)
+
+Downsize to `100 KB`, auto determine format for result image:
+
+```sh
+$ downsize -s=102400 leaves.jpg leaves100kb.jpg
+```
+
+Resized result `100 KB`:
+
+![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24271855/02c5bcfa-0fd8-11e7-8bbc-b1cf86751350.jpg)
+
 # License
 
 [MIT License](LICENSE.md)
