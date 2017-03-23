@@ -8,7 +8,7 @@ Reduces an image to a specified file size in bytes.
 # Installation
 
 ```bash
-$ go get github.com/lelenanam/downsize
+$ go get -u github.com/lelenanam/downsize
 ```
 
 # Usage
@@ -92,22 +92,6 @@ func main() {
 		log.Fatalf("Error: %v, cannot downsize image to size: %v", err, opt.Size)
 	}
 }
-```
-
-## Command Line Usage
-
-```sh
-$ # You can specify the size in bytes and the format for the output file.
-$ ds [-s size] [-f format] infile outfile
-$ ds [-help]
-```
-
-By default output file size is 200 KB and format is determined during decoding.
-
-## Example
-
-```sh
-$ ds -s 1000000 -f png image.jpg resized.png
 ```
 
 # License
