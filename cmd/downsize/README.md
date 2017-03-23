@@ -13,27 +13,25 @@ $ go get -u github.com/lelenanam/downsize/...
 
 # Usage
 
-## Command Line Usage
-
 ```sh
 $ # You can specify the size in bytes and the format for the output file.
-$ ds [-s size] [-f format] infile outfile
-$ ds [-help]
+$ downsize [-s=size] [-f=format] infile outfile
+$ downsize [-help]
 ```
 
-By default, output file size is 200 KB and the format is determined during decoding.
+By default, output file size is `200 KB` and the format is determined during decoding.
 
 ## Example
 
-Resize the file `image.jpg` to size = `1 MB` and save the result in `jpeg` format file `resized.jpg`.
+Resize the file `image.jpg` to size `1 MB` and save the result in `jpeg` format file `resized.jpg`.
 
 ```sh
 $ downsize -s=1048576 -f=jpeg image.jpg resized.jpg
 ```
 
-# Sample 1
+## Sample 1
 
-The original image:
+The original image `2.4 MB`:
 
 ![flower](https://cloud.githubusercontent.com/assets/4003503/24270582/f352a102-0fd2-11e7-852e-7ea77c4eae82.jpg)
 
@@ -77,9 +75,9 @@ Resized result:
 
 ![flower100kb](https://cloud.githubusercontent.com/assets/4003503/24270871/1b7d8e7a-0fd4-11e7-8b27-8b055a60201b.png)
 
-# Sample 2
+## Sample 2
 
-The original image:
+The original image `3.4 MB`:
 
 ![leaves](https://cloud.githubusercontent.com/assets/4003503/24270590/ffc8b070-0fd2-11e7-949f-3f76364ac252.jpg)
 
