@@ -25,8 +25,11 @@ type Options struct {
 	GifOptions *gif.Options
 }
 
+// DefaultQuality is default quality to encode image
+var DefaultQuality = 80
+
 var defaultFormat = "jpeg"
-var defaultJpegOptions = &jpeg.Options{Quality: 100}
+var defaultJpegOptions = &jpeg.Options{Quality: DefaultQuality}
 var defaultOptions = &Options{Format: defaultFormat, JpegOptions: defaultJpegOptions}
 
 //Accuracy for calculating specified file size Options.Size
