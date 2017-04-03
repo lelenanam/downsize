@@ -14,12 +14,12 @@ $ go get -u github.com/lelenanam/downsize/...
 # Usage
 
 ```sh
-$ # You can specify the size in bytes and the format for the output file.
-$ downsize [-s=size] [-f=format] infile outfile
+$ # You can specify the size in bytes and the format for the output file. For jpeg format you can specify the quality.
+$ downsize [-s=size] [-f=format] [-q jpeg quality] infile outfile
 $ downsize [-help]
 ```
 
-By default, output file size is `200 KB` and the format is determined during decoding.
+By default, output file size is `200 KB` and the format is determined during decoding. The jpeg quality is `80` by default.
 
 ## Example
 
@@ -43,7 +43,7 @@ $ downsize -s=1048576 flower.jpg flower1mb.jpg
 
 Resized result:
 
-![flower1mb](https://cloud.githubusercontent.com/assets/4003503/24270847/031ddab0-0fd4-11e7-8c59-704ddeab9fe0.jpg)
+![flower1mb](https://cloud.githubusercontent.com/assets/4003503/24625151/f6576e30-1862-11e7-89cd-aa6ebbc21e3f.jpg)
 
 Downsize to `200 KB`, `jpeg` format for result image:
 
@@ -53,7 +53,7 @@ $ downsize -s=204800 -f=jpeg flower.jpg flower200kb.jpg
 
 Resized result:
 
-![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24270835/f6f6d728-0fd3-11e7-9429-cef375b1e969.jpg)
+![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24625184/120b66fe-1863-11e7-9cab-42af6bb2aa71.jpg)
 
 Downsize to `200 KB`, `png` format for result image:
 
@@ -63,17 +63,8 @@ $ downsize -s=204800 -f=png flower.jpg flower200kb.png
 
 Resized result:
 
-![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24270862/1126aace-0fd4-11e7-8c06-769162a93abe.png)
+![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24625215/26a34bfe-1863-11e7-9d5f-3258a8aa71ce.png)
 
-Downsize to `100 KB`, `png` format for result image:
-
-```sh
-$ downsize -s=102400 -f=png flower.jpg flower100kb.png
-```
-
-Resized result:
-
-![flower100kb](https://cloud.githubusercontent.com/assets/4003503/24270871/1b7d8e7a-0fd4-11e7-8b27-8b055a60201b.png)
 
 ## Sample 2
 
@@ -81,17 +72,7 @@ The original image `3.4 MB`:
 
 ![leaves](https://cloud.githubusercontent.com/assets/4003503/24270590/ffc8b070-0fd2-11e7-949f-3f76364ac252.jpg)
 
-Downsize to `500 KB`, auto determine format for result image:
-
-```sh
-$ downsize -s=512000 leaves.jpg leaves500kb.jpg
-```
-
-Resized result:
-
-![leaves500kb](https://cloud.githubusercontent.com/assets/4003503/24270890/2b3de260-0fd4-11e7-97b3-1d70d9f3874e.jpg)
-
-Downsize to `200 KB`, auto determine format for result image:
+Downsize to `200 KB`, auto determine format for result image, default quality:
 
 ```sh
 $ downsize -s=204800 leaves.jpg leaves200kb.jpg
@@ -99,7 +80,17 @@ $ downsize -s=204800 leaves.jpg leaves200kb.jpg
 
 Resized result:
 
-![leaves200kb](https://cloud.githubusercontent.com/assets/4003503/24270881/245cb76e-0fd4-11e7-86a4-b3547010e4f6.jpg)
+![leaves200kb](https://cloud.githubusercontent.com/assets/4003503/24625297/690b42d0-1863-11e7-86f3-bb90358b009d.jpg)
+
+Downsize to `200 KB`, auto determine format for result image, quality `50`:
+
+```sh
+$ downsize -s=204800 -q=50 leaves.jpg leaves200kbQ50.jpg
+```
+
+Resized result:
+
+![leaves200kbq50](https://cloud.githubusercontent.com/assets/4003503/24625339/8c90db3e-1863-11e7-9a9d-227980e19464.jpg)
 
 Downsize to `100 KB`, auto determine format for result image:
 
@@ -109,4 +100,4 @@ $ downsize -s=102400 leaves.jpg leaves100kb.jpg
 
 Resized result:
 
-![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24271855/02c5bcfa-0fd8-11e7-8bbc-b1cf86751350.jpg)
+![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24625357/9f83193c-1863-11e7-99c7-2cc912f5b723.jpg)
