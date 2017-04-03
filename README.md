@@ -44,13 +44,15 @@ type Options struct {
 }
 ```
 
-By default an image encodes with `jpeg` format and with the highest quality `&jpeg.Options{Quality: 100}`.
+By default an image encodes with `jpeg` format and with the quality `DefaultQuality = 80`.
 All metadata is stripped after encoding.
 
 ```go
+var DefaultQuality = 80
 var defaultFormat = "jpeg"
-var defaultJpegOptions = &jpeg.Options{Quality: 100}
+var defaultJpegOptions = &jpeg.Options{Quality: DefaultQuality}
 var defaultOptions = &Options{Format: defaultFormat, JpegOptions: defaultJpegOptions}
+
 ```
 
 # Example
@@ -74,7 +76,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Println("Cannot close input file: ", err)
+		}
+	}()
 
 	img, format, err := image.Decode(file)
 	if err != nil {
@@ -85,7 +91,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer out.Close()
+	defer func() {
+		if err := out.Close(); err != nil {
+			log.Println("Cannot close output file: ", err)
+		}
+	}()
 
 	opt := &downsize.Options{Size: 1048576, Format: format}
 	if err = downsize.Encode(out, img, opt); err != nil {
@@ -96,54 +106,80 @@ func main() {
 
 # Sample
 
-The original image `2.4 MB`:
+The original jpeg image `2.4 MB`:
 
-![flower](https://cloud.githubusercontent.com/assets/4003503/24270582/f352a102-0fd2-11e7-852e-7ea77c4eae82.jpg)
+![flower](https://cloud.githubusercontent.com/assets/4003503/24624009/4fcd3962-185f-11e7-8b6b-a28e217cba27.jpg)
 
-Downsize to `200 KB`, `png` format for result image:
+Downsize to `200 KB`, `png` format and default quality for result image:
 
-```sh
-$ downsize -s=204800 -f=png flower.jpg flower200kb.png
+```go
+opt := &downsize.Options{Size: 204800, Format: "png"}
+err = downsize.Encode(out, img, opt)
 ```
 
 Resized result `200 KB`:
 
-![flower200kb](https://cloud.githubusercontent.com/assets/4003503/24270862/1126aace-0fd4-11e7-8c06-769162a93abe.png)
+![flower200kbpng](https://cloud.githubusercontent.com/assets/4003503/24624123/aa7f5f16-185f-11e7-9340-e896ee116bc3.png)
 
-Downsize to `100 KB`, `png` format for result image:
+Downsize to `200 KB`, `jpeg` format and default quality for result image:
 
-```sh
-$ downsize -s=102400 -f=png flower.jpg flower100kb.png
+```go
+opt := &downsize.Options{Size: 204800, Format: "jpeg"}
+err = downsize.Encode(out, img, opt)
 ```
 
-Resized result `100 KB`:
+Resized result `200 KB`:
 
-![flower100kb](https://cloud.githubusercontent.com/assets/4003503/24270871/1b7d8e7a-0fd4-11e7-8b27-8b055a60201b.png)
+![flower200kbjpegq80](https://cloud.githubusercontent.com/assets/4003503/24624188/de20d7b4-185f-11e7-931b-1b2eeb1ab0f0.jpg)
+
+Downsize to `200 KB`, `jpeg` format and quality `50` for result image:
+
+```go
+opt := &downsize.Options{Size: 204800, Format: "jpeg", JpegOptions: &jpeg.Options{Quality: 50}}
+err = downsize.Encode(out, img, opt)
+```
+
+Resized result `200 KB`, quality `50`:
+
+![flower200kbjpegq50](https://cloud.githubusercontent.com/assets/4003503/24624303/3edbcfbe-1860-11e7-947f-16954fd3a872.jpg)
 
 
 The original image `3.4 MB`:
 
 ![leaves](https://cloud.githubusercontent.com/assets/4003503/24270590/ffc8b070-0fd2-11e7-949f-3f76364ac252.jpg)
 
-Downsize to `200 KB`, auto determine format for result image:
+Downsize to `100 KB`, auto determine format and default quality for result image:
 
-```sh
-$ downsize -s=204800 leaves.jpg leaves200kb.jpg
-```
-
-Resized result `200 KB`:
-
-![leaves200kb](https://cloud.githubusercontent.com/assets/4003503/24270881/245cb76e-0fd4-11e7-86a4-b3547010e4f6.jpg)
-
-Downsize to `100 KB`, auto determine format for result image:
-
-```sh
-$ downsize -s=102400 leaves.jpg leaves100kb.jpg
+```go
+opt := &downsize.Options{Size: 102400}
+err = downsize.Encode(out, img, opt)
 ```
 
 Resized result `100 KB`:
 
-![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24271855/02c5bcfa-0fd8-11e7-8bbc-b1cf86751350.jpg)
+![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24624461/c86e946e-1860-11e7-8059-c4bb25ad3c49.jpg)
+
+Downsize to `100 KB`, auto determine format and duality `50` for result image:
+
+```go
+opt := &downsize.Options{Size: 102400, JpegOptions: &jpeg.Options{Quality: 50}}
+err = downsize.Encode(out, img, opt)
+```
+
+Resized result `100 KB`, quality `50`:
+
+![leaves100kbjpegq50](https://cloud.githubusercontent.com/assets/4003503/24624590/38ccf520-1861-11e7-964e-7b3411a3fc11.jpg)
+
+Downsize to `50 KB`, auto determine format and default duality for result image:
+
+```go
+opt := &downsize.Options{Size: 51200}
+err = downsize.Encode(out, img, opt)
+```
+
+Resized result `50 KB`:
+
+![leaves50kbjpegq80](https://cloud.githubusercontent.com/assets/4003503/24624690/7b46c0ac-1861-11e7-93d0-b4c87b9765eb.jpg)
 
 # License
 
