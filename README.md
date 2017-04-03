@@ -159,7 +159,7 @@ Resized result `100 KB`:
 
 ![leaves100kb](https://cloud.githubusercontent.com/assets/4003503/24624461/c86e946e-1860-11e7-8059-c4bb25ad3c49.jpg)
 
-Downsize to `100 KB`, auto determine format and duality `50` for result image:
+Downsize to `100 KB`, auto determine format and quality `50` for result image:
 
 ```go
 opt := &downsize.Options{Size: 102400, JpegOptions: &jpeg.Options{Quality: 50}}
