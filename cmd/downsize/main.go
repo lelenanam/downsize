@@ -13,8 +13,8 @@ import (
 	"github.com/lelenanam/downsize"
 )
 
-// USAGE: downsize [-s size] [-f format] [-q jpeg quality] infile outfile
-// USAGE: downsize [-help]
+// USAGE: downsize [-s=size] [-f=format] [-q=jpeg quality] infile outfile
+// USAGE: downsize [--help]
 
 func main() {
 	var size = flag.Int("s", 204800, "desired output file size in bytes")

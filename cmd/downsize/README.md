@@ -1,8 +1,5 @@
 # downsize
 
-[![Build Status](https://travis-ci.org/lelenanam/downsize.svg?branch=master)](https://travis-ci.org/lelenanam/downsize)
-[![GoDoc](https://godoc.org/github.com/lelenanam/downsize?status.svg)](https://godoc.org/github.com/lelenanam/downsize)
-
 Reduces an image to a specified file size in bytes.
 
 # Installation
@@ -13,13 +10,20 @@ $ go get -u github.com/lelenanam/downsize/...
 
 # Usage
 
+You can specify the size in bytes and the format for the output file. For `jpeg` format, you can specify the quality.
+
 ```sh
-$ # You can specify the size in bytes and the format for the output file. For jpeg format you can specify the quality.
 $ downsize [-s=size] [-f=format] [-q jpeg quality] infile outfile
-$ downsize [-help]
+$ downsize --help
+Usage of downsize:
+  -f string
+    	format: jpeg, png or gif, by default the format of an image is determined during decoding
+  -q int
+    	desired output jpeg quality, ranges from 1 to 100 inclusive, higher is better (default 80)
+  -s int
+    	desired output file size in bytes (default 204800)
 ```
 
-By default, output file size is `200 KB` and the format is determined during decoding. The jpeg quality is `80` by default.
 
 ## Example
 

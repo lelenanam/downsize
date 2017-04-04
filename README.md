@@ -4,6 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/lelenanam/downsize?status.svg)](https://godoc.org/github.com/lelenanam/downsize)
 
 Reduces an image to a specified file size in bytes.
+Also [command line tool](https://github.com/lelenanam/downsize/tree/master/cmd/downsize) available.
 
 # Installation
 
