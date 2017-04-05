@@ -12,12 +12,15 @@ $ go get -u github.com/lelenanam/downsize/...
 
 You can specify the size in bytes and the format for the output file. For `jpeg` format, you can specify the quality.
 
-```sh
-$ downsize [-s=size] [-f=format] [-q jpeg quality] infile outfile
-$ downsize --help
+```
 Usage of downsize:
+downsize [-s=size] [-f=format] [-q=jpeg quality] [-i=infile] [-o=outfile]
   -f string
     	format: jpeg, png or gif, by default the format of an image is determined during decoding
+  -i string
+    	input file name, required
+  -o string
+    	output file name, required
   -q int
     	desired output jpeg quality, ranges from 1 to 100 inclusive, higher is better (default 80)
   -s int
