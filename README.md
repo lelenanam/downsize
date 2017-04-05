@@ -49,7 +49,7 @@ By default an image encodes with `jpeg` format and with the quality `DefaultQual
 All metadata is stripped after encoding.
 
 ```go
-var DefaultQuality = 80
+const DefaultQuality = 80
 var defaultFormat = "jpeg"
 var defaultJpegOptions = &jpeg.Options{Quality: DefaultQuality}
 var defaultOptions = &Options{Format: defaultFormat, JpegOptions: defaultJpegOptions}
