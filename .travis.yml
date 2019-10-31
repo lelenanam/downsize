@@ -1,13 +1,12 @@
 language: go
 sudo: false
 go:
-  - 1.9
+  - 1.x
   - master
-install:
-  - go get -t ./...
-  - go get -u github.com/alecthomas/gometalinter
-  - gometalinter --install
+
+before_script:
+    - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH) v1.21.0
+
 script:
-  - gometalinter --enable-all --disable=vetshadow --disable=lll --deadline=60s .
-  - test -z "$(gofmt -s -l . | tee /dev/stderr)"
-  - go test -race -v ./...
+    - env GO111MODULES=on $(go env GOPATH)/golangci-lint run
+    - env GO111MODULES=on go test -v -race ./...
